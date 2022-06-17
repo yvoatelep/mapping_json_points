@@ -37,10 +37,29 @@ L.control.layers(baseMaps).addTo(map);
 // Accessing the airport GeoJSON URL
 let airportData = "https://raw.githubusercontent.com/yvoatelep/mapping_json_points/main/majorAirports%20(1).json";
 
-// Grabbing our GeoJSON data.
 
+// // Grabbing our GeoJSON data.
+
+
+// }).addTo(map);
+
+// Grabbing our GeoJSON data.
+// d3.json(airportData).then(function(data) {
+//   console.log(data);
+// // Creating a GeoJSON layer with the retrieved data.
+// L.geoJSON(data).addTo(map);
+// });
+
+// Grabbing our GeoJSON data.
 d3.json(airportData).then(function(data) {
   console.log(data);
 // Creating a GeoJSON layer with the retrieved data.
-L.geoJSON(data).addTo(map);
+L.geoJSON(data, {
+  // We turn each feature into a marker on the map.
+  onEachFeature: function(feature, layer) {
+    console.log(layer);
+    // layer.bindPopup();
+    layer.bindPopup("<h2>" + feature.properties.faa + feature.properties.name+ "<h2>")
+  }
+}).addTo(map);
 });
